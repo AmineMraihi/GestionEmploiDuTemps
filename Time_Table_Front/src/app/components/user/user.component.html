@@ -1,0 +1,153 @@
+<app-appheader></app-appheader>
+<app-appmenu></app-appmenu>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">List User</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <table class="table table-bordered">
+
+                    <thead>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Remove</th>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let event of users; let index = index;">
+                        <td>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    [(ngModel)]="event.firstName"
+                                    (keyup)="refresh.next()"
+                                    (focusout)="updateuser(event)">
+
+                        </td>
+                        <td>
+                            <input
+                                    class="form-control"
+                                    [(ngModel)]="event.lastName"
+                                    (ngModelChange)="refresh.next()"
+                                    (focusout)="updateuser(event)">
+                        </td>
+                        <td>
+                            <input
+                                    class="form-control"
+                                    [(ngModel)]="event.username"
+                                    (ngModelChange)="refresh.next()"
+                                    (focusout)="updateuser(event)">
+                        </td>
+                        <td>
+
+                            <input
+                                    class="form-control"
+                                    #email="ngModel"
+                                    id="email"
+                                    name="email"
+                                    [(ngModel)]="event.email"
+                                    (ngModelChange)="refresh.next()"
+                                    (focusout)="updateuser(event)" >
+
+
+                        </td>
+
+                        <td >
+                            <select class="form-control" [(ngModel)]="event.role" (change)="updateuser(event)">
+                                <option *ngFor="let rolee of roles" [ngValue]="rolee">{{rolee.roleName}}</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <button
+                                    class="btn btn-danger"
+                                    (click)="users.splice(index, 1); deleteuser(event); refresh.next()">
+                                Delete
+                            </button>
+                        </td>
+
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add new User</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="box-body">
+                    <form name="form" (ngSubmit)="f.form.valid && register() "  #f="ngForm"  novalidate  >
+                        <!-- text input -->
+                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
+                            <input type="text" class="form-control" name="firstName" placeholder="First Name"
+                                   [(ngModel)]="user1.firstName" #firstName="ngModel" required/>
+                            <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+                        </div>
+                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+                            <input type="text" class="form-control" name="lastName" placeholder="Last Name"
+                                   [(ngModel)]="user1.lastName" #lastName="ngModel" required/>
+                            <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+                        </div>
+                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !username.valid }" >
+                            <input type="text" class="form-control" name="username" placeholder="User Name"
+                                   [(ngModel)]="user1.username" #username="ngModel" required/>
+                            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                        </div>
+                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !email1.valid }">
+                            <input type="text" class="form-control" id="email1" name="email" pattern="[^ @]*@[^ @]*" placeholder="Email"
+                                   [(ngModel)]="user1.email" #email1="ngModel" required/>
+                            <div *ngIf="f.submitted && !email1.valid" class="help-block">Email is required</div>
+                            <div id="mail" *ngIf="email1.errors.pattern && f.submitted ">
+                                A valid email address is required
+
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                                   [(ngModel)]="user1.password" #password="ngModel" required/>
+                            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+
+                        </div>
+
+                            <select class="form-control" [(ngModel)]="user1.role"  >
+                                <option *ngFor="let rolee of roles" [ngValue]="rolee">{{rolee.roleName}}</option>
+                            </select>
+
+                        <button
+                                class="btn btn-danger"
+                                [disabled]="loading"  >
+                            Add user
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+        <app-appfooter></app-appfooter>
+        <app-appsetting></app-appsetting>

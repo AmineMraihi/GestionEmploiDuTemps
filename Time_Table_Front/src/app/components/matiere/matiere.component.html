@@ -1,0 +1,78 @@
+<app-appheader></app-appheader>
+<app-appmenu></app-appmenu>
+<div class="content-wrapper">
+  <section class="content">
+    <div class="box box-warning">
+      <div class="box-header with-border">
+        <h3 class="box-title">Nouvelle matiere</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <form role="form">
+          <!-- text input -->
+          <div class="form-group">
+            <label>Nom du matiere </label>
+            <input type="text" class="form-control" placeholder="Enter ..." [(ngModel)]="matiere.name" [ngModelOptions]="{standalone: true}">
+            <div class="form-group has-warning">
+              <label class="control-label" *ngIf="matiere.name=='' || matiere.name==null"><i class="fa fa-bell-o"></i> Input with
+                warning</label></div>
+            <div class="form-group has-success">
+              <label class="control-label" *ngIf="matiere.name!='' && matiere.name!=null"><i class="fa fa-check"></i> Input with success</label>
+            </div>
+            <!-- <div class="form-group has-error">
+               <label class="control-label" *ngIf="verifierClasseName(classe)"><i class="fa fa-times-circle-o"></i> Input with
+                 error</label></div>
+           </div> -->
+            <div class="form-group">
+              <label>Coefficient </label>
+              <input type="number" class="form-control" placeholder="Enter ..." [(ngModel)]="matiere.coefficient" [ngModelOptions]="{standalone: true}">
+              <div class="form-group has-warning">
+                <label class="control-label" *ngIf="matiere.coefficient=='' || matiere.coefficient==null"><i class="fa fa-bell-o"></i> Input with
+                  warning</label></div>
+              <div class="form-group has-success">
+                <label class="control-label" *ngIf="matiere.coefficient!='' && matiere.coefficient!=null"><i class="fa fa-check"></i> Input with success</label>
+              </div>
+            </div>
+            <td>
+              <button type="submit" class="btn btn-block btn-primary Flat .btn-flat" (click)="addMatiere( );">ajouter</button>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-block btn-primary Flat .btn-flat " (click)="updateMatiere( );">modifier</button>
+            </td>
+
+            <br>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6"  *ngFor="let matier of matieres;">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="box-tools pull-right">
+
+
+                  <button type="button" class="btn btn-box-tool" (click)="deleteMatiere(matier);"><i class="fa fa-times" ></i></button>
+                </div>
+                <div class="inner">
+                  <h3>{{ matier.coefficient}} </h3>
+
+                  <p>{{ matier.name}}</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a class="small-box-footer" (click)="remplirChamps(matier);">
+                  More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+
+
+
+          </div>
+        </form>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </section>
+</div>
+<app-appfooter></app-appfooter>
+<app-appsetting></app-appsetting>
